@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV - Yeimi Yaritza</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #E60023;
+            --primary-dark: #B30018;
+            --accent-gold: #cfa856;
+            --envelope-cream: #f4efe2;
+            --bg-cream: #faf6f0;
+            --text-dark: #39272a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            background: #2b2b2b;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background: var(--bg-cream);
+            position: relative;
+            box-shadow: 0 0 25px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* PORTADA Y SOBRE */
+        #envelope-screen {
+            position: absolute;
+            inset: 0;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+            text-align: center;
+            z-index: 100;
+            background: radial-gradient(circle at 50% 50%, #fffdfa 0%, #f7f1e5 70%, #e6d9c3 100%);
+            transition: opacity .8s ease, visibility .8s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        #envelope-screen.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .hero-photo-container {
+            width: 100%;
+            height: 155px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+
+        .hero-photo-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 55px;
+            background: linear-gradient(to bottom, transparent, #f7f1e5);
+        }
+
+        .cover-content-center {
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            margin-top: -5px;
+        }
+
+        .cover-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(42px, 11vw, 54px);
+            color: var(--primary-red);
+            line-height: 1.25;
+            margin: 0 0 8px;
+            font-weight: 400;
+            padding: 8px 15px 12px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .cover-instruction {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            color: #705357;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .envelope-box {
+            position: relative;
+            width: 88%;
+            max-width: 310px;
+            margin: 0 auto 15px;
+            cursor: pointer;
+            perspective: 1000px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .envelope-base {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            background-color: var(--envelope-cream);
+            border-radius: 4px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border: 1px solid #dcd4c1;
+            overflow: hidden;
+        }
+
+        .envelope-base::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 95px;
+            background: #ede6d5;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1px solid #d1c7b0;
+            z-index: 2;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            transform-origin: top center;
+        }
+
+        .envelope-box.opened .envelope-base::before {
+            transform: rotateX(180deg);
+            opacity: 0.2;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 76px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #e8ca8a, #c5a157 70%, #9a7630);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a3610;
+            font-size: 16px;
+            z-index: 5;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .envelope-box.opened .wax-seal {
+            opacity: 0;
+            transform: translate(-50%, -20px) scale(0.5);
+        }
+
+        .red-card {
+            position: absolute;
+            bottom: 7px;
+            left: 5%;
+            right: 5%;
+            background-color: var(--primary-red);
+            color: #fff;
+            padding: 14px 12px;
+            border-radius: 4px;
+            z-index: 4;
+            box-shadow: 0 10px 25px rgba(230,0,35,0.3);
+            text-align: center;
+            transition: transform 0.6s ease;
+        }
+
+        .envelope-box.opened .red-card {
+            transform: translateY(-20px) scale(1.02);
+        }
+
+        .card-title-xv {
+            font-family: 'Great Vibes', cursive;
+            font-size: 35px;
+            color: #fff;
+            margin-bottom: 2px;
+            font-weight: 400;
+        }
+
+        .card-date {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #fce881;
+            margin-bottom: 7px;
+            font-weight: 500;
+        }
+
+        .card-message {
+            font-size: 9px;
+            line-height: 1.4;
+            letter-spacing: .5px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .footer-photo-container {
+            width: 100%;
+            height: 115px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 75%;
+        }
+
+        .footer-photo-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 55px;
+            background: linear-gradient(to top, transparent, #f7f1e5);
+            z-index: 2;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-content {
+            display: none;
+            opacity: 0;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+        }
+
+        .main-content.show {
+            display: block;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* HERO INTERNO */
+        .hero-section {
+            background: linear-gradient(to bottom, rgba(179, 0, 24, 0.4) 0%, rgba(230, 0, 35, 0.95) 45%, #B30018 100%), 
+                        url('foto.jpg') no-repeat top center/cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 110px 20px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-crown-gold {
+            font-size: 32px;
+            color: #e5c158;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .hero-sub-title {
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fce881;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .hero-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(52px, 14vw, 68px);
+            color: #e5c158;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 400;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .hero-date-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 16px;
+            letter-spacing: 3px;
+            color: #fce881;
+            margin-bottom: 20px;
+        }
+
+        .hero-date-line .day-number {
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .hero-phrase {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #f3f3f3;
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+
+        .ornamental-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 70%;
+            margin: 0 auto 35px;
+            color: #e5c158;
+            font-size: 10px;
+        }
+
+        .ornamental-divider::before,
+        .ornamental-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e5c158, transparent);
+        }
+
+        .custom-player-box {
+            width: 100%;
+            max-width: 310px;
+            background: rgba(45, 0, 8, 0.85);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid rgba(229, 193, 88, 0.3);
+        }
+
+        .player-text-header {
+            background: rgba(230, 0, 35, 0.6);
+            padding: 10px 15px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fce881;
+            font-weight: 600;
+        }
+
+        .player-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 12px 20px;
+            color: #f3f3f3;
+        }
+
+        .player-icon-btn {
+            background: none;
+            border: none;
+            color: #e5c158;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .player-play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            color: #fff;
+            border: 1px solid #e5c158;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+
+        .parents-section {
+            background-color: #B30018;
+            padding: 50px 20px 40px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .arch-card {
+            background: #fdfbf7;
+            border-radius: 120px 120px 12px 12px;
+            padding: 40px 20px 30px;
+            max-width: 320px;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid rgba(229, 193, 88, 0.3);
+        }
+
+        .arch-card h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 38px;
+            color: var(--primary-red);
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .arch-card p {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #b08d4b;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .arch-card .ampersand {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: #b08d4b;
+            margin: 10px 0;
+            display: block;
+        }
+
+        .blessing-phrase {
+            font-size: 11px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: #fce881;
+            max-width: 300px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .illustration-box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px auto 0;
+            width: 100%;
+            max-width: 260px;
+            height: 280px;
+        }
+
+        .quinceanera-illustration {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        /* CUENTA REGRESIVA Y SAVE THE DATE */
+        .savethedate-section {
+            background-color: #FAF6F0;
+            padding: 0 20px 45px;
+            text-align: center;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .top-flowers-banner {
+            width: 100%;
+            background-color: #80000D;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .top-flowers-banner svg {
+            height: 38px;
+            width: auto;
+        }
+
+        .std-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 58px;
+            color: #B30018;
+            font-weight: 400;
+            margin-bottom: 12px;
+        }
+
+        .std-date-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 16px;
+            letter-spacing: 2.5px;
+            color: #b08d4b;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .std-date-row .day-big {
+            font-size: 36px;
+            color: #B30018;
+            font-weight: 400;
+        }
+
+        .std-time {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #B30018;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .std-illustration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            width: 100%;
+            max-width: 240px;
+            height: 250px;
+        }
+
+        .std-illustration-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+
+        .std-diamond-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 60%;
+            margin: 0 auto 20px;
+            color: #cfa856;
+            font-size: 9px;
+        }
+
+        .std-diamond-divider::before,
+        .std-diamond-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #cfa856, transparent);
+        }
+
+        .std-label-faltan {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #a88748;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .std-countdown-clock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            color: #B30018;
+            font-size: 36px;
+            font-weight: 400;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        .std-countdown-clock .colon {
+            font-size: 28px;
+            color: #B30018;
+            margin: 0 -2px;
+            position: relative;
+            top: -2px;
+        }
+
+        .std-countdown-labels {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .std-countdown-labels span {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #a88748;
+            font-weight: 500;
+            width: 48px;
+            text-align: center;
+        }
+
+        /* SECCIONES DE CEREMONIA Y RECEPCIÓN CON ÍCONOS */
+        .location-card-section {
+            background-color: #FAF6F0;
+            padding: 30px 20px 40px;
+            text-align: center;
+            color: var(--text-dark);
+            border-top: 1px solid rgba(207, 168, 86, 0.3);
+        }
+
+        .location-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fce881, #cfa856);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(179, 0, 24, 0.15);
+            color: #B30018;
+            font-size: 30px;
+        }
+
+        .location-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 48px;
+            color: #B30018;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .location-place-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: var(--primary-red);
+            line-height: 1.2;
+            margin-bottom: 8px;
+            padding: 0 10px;
+        }
+
+        .location-time {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #b08d4b;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .btn-mapa {
+            background: #B30018;
+            color: #fff;
+            border: 1px solid #cfa856;
+            padding: 12px 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(179,0,24,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-mapa:hover {
+            background: #80000D;
+            transform: translateY(-2px);
+        }
+
+        .location-divider {
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #cfa856, transparent);
+            margin: 35px auto;
+        }
+
+        /* SECCIÓN CONFIRMAR ASISTENCIA */
+        .rsvp-section {
+            background-color: #61000A;
+            padding: 0 20px 40px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .rsvp-flower-banner {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0 20px;
+        }
+
+        .rsvp-flower-banner svg {
+            height: 38px;
+            width: auto;
+        }
+
+        .rsvp-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 52px;
+            color: #e5c158;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .rsvp-deadline {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #fce881;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .rsvp-envelope-icon {
+            width: 120px;
+            height: 80px;
+            background: #80000D;
+            margin: 0 auto 25px;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(229, 193, 88, 0.3);
+        }
+
+        .rsvp-envelope-icon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 42px;
+            background: #990011;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1px solid rgba(229, 193, 88, 0.3);
+        }
+
+        .rsvp-heart {
+            color: #e5c158;
+            font-size: 26px;
+            z-index: 2;
+            margin-top: 5px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .btn-confirmar {
+            background: #990011;
+            color: #fce881;
+            border: 1px solid #e5c158;
+            padding: 12px 35px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .btn-confirmar:hover {
+            background: #B30018;
+            transform: translateY(-2px);
+        }
+
+        .esperamos-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: #e5c158;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .bottom-flowers {
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <!-- PORTADA Y SOBRE -->
+        <div id="envelope-screen">
+            <div class="hero-photo-container">
+                <img src="portada.jpg" alt="Fotografía de Yeimi Yaritza">
+            </div>
+
+            <div class="cover-content-center">
+                <h1 class="cover-name">Yeimi Yaritza</h1>
+                <p class="cover-instruction">DA CLIC AL SOBRE PARA ABRIR</p>
+
+                <div class="envelope-box" id="envelope-box" role="button" tabindex="0" onclick="openInvitation()">
+                    <div class="envelope-base">
+                        <div class="wax-seal"><i class="fa-solid fa-rose"></i></div>
+                        <div class="red-card">
+                            <h2 class="card-title-xv">Mis XV</h2>
+                            <div class="card-date">19 DE DIC 2026</div>
+                            <p class="card-message">¡Espero contar con tu compañía en este día tan especial!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-photo-container">
+                <img src="portada.jpg" alt="Fotografía de Yeimi Yaritza">
+            </div>
+        </div>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content" id="main-content">
+
+            <!-- PRIMERA SECCIÓN INTERNA -->
+            <div class="hero-section">
+                <div class="hero-crown-gold"><i class="fa-solid fa-crown"></i></div>
+                <div class="hero-sub-title">MIS XV AÑOS</div>
+                <h1 class="hero-name">Yeimi Yaritza</h1>
+                
+                <div class="hero-date-line">
+                    <span>DIC</span>
+                    <span class="divider-line">|</span>
+                    <span class="day-number">19</span>
+                    <span class="divider-line">|</span>
+                    <span>2026</span>
+                </div>
+                
+                <p class="hero-phrase">ACOMPÁÑAME EN ESTE DÍA TAN ESPECIAL</p>
+                <div class="ornamental-divider">✦ ◆ ✦</div>
+                
+                <div class="custom-player-box">
+                    <div class="player-text-header">DA PLAY PARA ESCUCHAR MI CANCIÓN</div>
+                    <div class="player-controls-row">
+                        <button class="player-icon-btn"><i class="fa-regular fa-heart"></i></button>
+                        <button class="player-icon-btn"><i class="fa-solid fa-backward-step"></i></button>
+                        
+                        <button class="player-play-btn" onclick="togglePlay()">
+                            <i id="play-icon" class="fa-solid fa-play"></i>
+                        </button>
+                        
+                        <button class="player-icon-btn"><i class="fa-solid fa-forward-step"></i></button>
+                        <button class="player-icon-btn"><i class="fa-solid fa-circle-plus"></i></button>
+                    </div>
+                </div>
+
+                <audio id="bg-music" loop>
+                    <source src="musica/Love On The Brain.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- SECCIÓN PADRES Y PADRINOS -->
+            <div class="parents-section">
+                <div class="arch-card">
+                    <h3>Mi Madre</h3>
+                    <p>Miriam Nayeli Rivas Olvera</p>
+
+                    <span class="ampersand">&</span>
+
+                    <h3>Mis Padrinos</h3>
+                    <p>Jorge Olvera Martinez<br>Ericka Andrade Sanchez</p>
+                </div>
+
+                <p class="blessing-phrase">
+                    DOY GRACIAS A DIOS POR ESTOS XV AÑOS Y POR TENER A PERSONAS COMO USTEDES EN MI CAMINO
+                </p>
+
+                <div class="illustration-box-container">
+                    <img src="quinceañera.jppg" alt="Quinceañera Yeimi Yaritza" class="quinceanera-illustration">
+                </div>
+            </div>
+
+            <!-- SECCIÓN SAVE THE DATE Y CUENTA REGRESIVA -->
+            <div class="savethedate-section">
+
+                <!-- Guirnalda Floral Superior -->
+                <div class="top-flowers-banner">
+                    <svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="#fbeee4" stroke="#e0c7b3" stroke-width="0.8">
+                            <circle cx="200" cy="20" r="14"/>
+                            <circle cx="170" cy="25" r="12"/>
+                            <circle cx="230" cy="25" r="12"/>
+                            <circle cx="140" cy="30" r="10"/>
+                            <circle cx="260" cy="30" r="10"/>
+                            <circle cx="115" cy="32" r="8"/>
+                            <circle cx="285" cy="32" r="8"/>
+                        </g>
+                        <g fill="#d4af37">
+                            <circle cx="200" cy="20" r="4"/>
+                            <circle cx="170" cy="25" r="3.5"/>
+                            <circle cx="230" cy="25" r="3.5"/>
+                            <circle cx="140" cy="30" r="3"/>
+                            <circle cx="260" cy="30" r="3"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <h2 class="std-title">Save the Date</h2>
+
+                <!-- Fecha SÁB | 19 | DIC -->
+                <div class="std-date-row">
+                    <span>SÁB</span>
+                    <span>|</span>
+                    <span class="day-big">19</span>
+                    <span>|</span>
+                    <span>DIC</span>
+                </div>
+
+                <!-- Hora: 4:30 PM -->
+                <div class="std-time">
+                    HORA: 4:30 PM
+                </div>
+
+                <!-- Imagen directa de la Quinceañera (Sin fondo) -->
+                <div class="std-illustration-container">
+                    <img src="VESTIDO.jfif" alt="Quinceañera Yeimi Yaritza">
+                </div>
+
+                <div class="std-diamond-divider">✦ ◆ ✦</div>
+
+                <div class="std-label-faltan">FALTAN:</div>
+
+                <!-- Reloj Digital con Cálculo Automático -->
+                <div class="std-countdown-clock">
+                    <span id="days">000</span>
+                    <span class="colon">:</span>
+                    <span id="hours">00</span>
+                    <span class="colon">:</span>
+                    <span id="minutes">00</span>
+                    <span class="colon">:</span>
+                    <span id="seconds">00</span>
+                </div>
+
+                <div class="std-countdown-labels">
+                    <span>DÍAS</span>
+                    <span>HORAS</span>
+                    <span>MIN</span>
+                    <span>SEG</span>
+                </div>
+
+            </div>
+
+            <!-- SECCIÓN UBICACIÓN: CEREMONIA (SÓLO ÍCONO) -->
+            <div class="location-card-section">
+                <div class="location-icon-wrapper">
+                    <i class="fa-solid fa-church"></i>
+                </div>
+                <h2 class="location-title">Ceremonia</h2>
+                <h3 class="location-place-name">Santuario de Ntra. Sra. de Guadalupe del Centro</h3>
+                <p class="location-time">HORA: 2:00 P.M.</p>
+                <a href="https://maps.google.com" target="_blank" class="btn-mapa">
+                    <i class="fa-solid fa-location-dot"></i> Ver Mapa
+                </a>
+
+                <div class="location-divider"></div>
+
+                <!-- SECCIÓN UBICACIÓN: RECEPCIÓN (SÓLO ÍCONO) -->
+                <div class="location-icon-wrapper">
+                    <i class="fa-solid fa-champagne-glasses"></i>
+                </div>
+                <h2 class="location-title">Recepción</h2>
+                <h3 class="location-place-name">Salón de Eventos Jardín de los Arcos</h3>
+                <p class="location-time">HORA: 6:00 P.M.</p>
+                <a href="https://maps.google.com" target="_blank" class="btn-mapa">
+                    <i class="fa-solid fa-location-dot"></i> Ver Ubicación Recepción
+                </a>
+            </div>
+
+            <!-- SECCIÓN CONFIRMAR ASISTENCIA -->
+            <div class="rsvp-section">
+                
+                <!-- Guirnalda Floral Superior -->
+                <div class="rsvp-flower-banner">
+                    <svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="#fbeee4" stroke="#e0c7b3" stroke-width="0.8">
+                            <circle cx="200" cy="20" r="14"/>
+                            <circle cx="170" cy="25" r="12"/>
+                            <circle cx="230" cy="25" r="12"/>
+                            <circle cx="140" cy="30" r="10"/>
+                            <circle cx="260" cy="30" r="10"/>
+                            <circle cx="115" cy="32" r="8"/>
+                            <circle cx="285" cy="32" r="8"/>
+                        </g>
+                        <g fill="#d4af37">
+                            <circle cx="200" cy="20" r="4"/>
+                            <circle cx="170" cy="25" r="3.5"/>
+                            <circle cx="230" cy="25" r="3.5"/>
+                            <circle cx="140" cy="30" r="3"/>
+                            <circle cx="260" cy="30" r="3"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <h2 class="rsvp-title">Confirmar Asistencia</h2>
+                <p class="rsvp-deadline"></p>
+
+                <!-- Sobre con Corazón -->
+                <div class="rsvp-envelope-icon">
+                    <i class="fa-solid fa-heart rsvp-heart"></i>
+                </div>
+
+                <!-- Botón que abre WhatsApp (puedes cambiar el número de teléfono) -->
+                <a href="https://wa.me/1234567890?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Yeimi%20Yaritza" target="_blank" class="btn-confirmar">
+                    CONFIRMA AQUÍ
+                </a>
+
+                <h3 class="esperamos-text">¡Te esperamos!</h3>
+
+                <!-- Guirnalda Floral Inferior -->
+                <div class="rsvp-flower-banner bottom-flowers">
+                    <svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="#fbeee4" stroke="#e0c7b3" stroke-width="0.8">
+                            <circle cx="200" cy="35" r="14"/>
+                            <circle cx="170" cy="30" r="12"/>
+                            <circle cx="230" cy="30" r="12"/>
+                            <circle cx="140" cy="25" r="10"/>
+                            <circle cx="260" cy="25" r="10"/>
+                            <circle cx="115" cy="23" r="8"/>
+                            <circle cx="285" cy="23" r="8"/>
+                        </g>
+                        <g fill="#d4af37">
+                            <circle cx="200" cy="35" r="4"/>
+                            <circle cx="170" cy="30" r="3.5"/>
+                            <circle cx="230" cy="30" r="3.5"/>
+                            <circle cx="140" cy="25" r="3"/>
+                            <circle cx="260" cy="25" r="3"/>
+                        </g>
+                    </svg>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Script de Cuenta Regresiva Automática -->
+    <script>
+        const eventDate = new Date("December 19, 2026 16:30:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function openInvitation() {
+            const envelopeBox = document.getElementById('envelope-box');
+            const envelopeScreen = document.getElementById('envelope-screen');
+            const mainContent = document.getElementById('main-content');
+
+            envelopeBox.classList.add('opened');
+
+            setTimeout(() => {
+                envelopeScreen.classList.add('hide');
+                mainContent.classList.add('show');
+            }, 800);
+        }
+
+        function togglePlay() {
+            const audio = document.getElementById('bg-music');
+            const playIcon = document.getElementById('play-icon');
+
+            if (audio.paused) {
+                audio.play();
+                playIcon.className = 'fa-solid fa-pause';
+            } else {
+                audio.pause();
+                playIcon.className = 'fa-solid fa-play';
+            }
+        }
+    </script>
+</body>
+</html>
