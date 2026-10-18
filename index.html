@@ -884,7 +884,7 @@
                 <div class="ornamental-divider">✦ ◆ ✦</div>
                 
                 <div class="custom-player-box">
-                    <div class="player-text-header">DA PLAY PARA ESCUCHAR MI CANCIÓN</div>
+                    <div class="player-text-header" id="player-status">DA PLAY PARA ESCUCHAR MI CANCIÓN</div>
                     <div class="player-controls-row">
                         <button class="player-icon-btn"><i class="fa-regular fa-heart"></i></button>
                         <button class="player-icon-btn"><i class="fa-solid fa-backward-step"></i></button>
@@ -898,8 +898,10 @@
                     </div>
                 </div>
 
-                <audio id="bg-music" loop>
-                    <source src="musica/Love On The Brain.mp3" type="audio/mpeg">
+                <!-- Archivo de Música: Renombra tu canción en GitHub a cancion.mp3 -->
+                <audio id="bg-music" loop preload="auto">
+                    <source src="cancion.mp3" type="audio/mpeg">
+                    <source src="musica/cancion.mp3" type="audio/mpeg">
                 </audio>
             </div>
 
@@ -994,7 +996,7 @@
 
             </div>
 
-            <!-- SECCIÓN UBICACIÓN: CEREMONIA (SÓLO ÍCONO) -->
+            <!-- SECCIÓN UBICACIÓN: CEREMONIA (SÓLO ÍCONO Y ENLACE MAPS) -->
             <div class="location-card-section">
                 <div class="location-icon-wrapper">
                     <i class="fa-solid fa-church"></i>
@@ -1002,20 +1004,20 @@
                 <h2 class="location-title">Ceremonia</h2>
                 <h3 class="location-place-name">Santuario de Ntra. Sra. de Guadalupe del Centro</h3>
                 <p class="location-time">HORA: 2:00 P.M.</p>
-                <a href="https://maps.google.com" target="_blank" class="btn-mapa">
+                <a href="https://maps.google.com/?q=Santuario+de+Nuestra+Senora+de+Guadalupe+del+Centro" target="_blank" class="btn-mapa">
                     <i class="fa-solid fa-location-dot"></i> Ver Mapa
                 </a>
 
                 <div class="location-divider"></div>
 
-                <!-- SECCIÓN UBICACIÓN: RECEPCIÓN (SÓLO ÍCONO) -->
+                <!-- SECCIÓN UBICACIÓN: RECEPCIÓN (SÓLO ÍCONO Y ENLACE MAPS) -->
                 <div class="location-icon-wrapper">
                     <i class="fa-solid fa-champagne-glasses"></i>
                 </div>
                 <h2 class="location-title">Recepción</h2>
                 <h3 class="location-place-name">Salón de Eventos Jardín de los Arcos</h3>
                 <p class="location-time">HORA: 6:00 P.M.</p>
-                <a href="https://maps.google.com" target="_blank" class="btn-mapa">
+                <a href="https://maps.google.com/?q=Salon+de+Eventos+Jardin+de+los+Arcos" target="_blank" class="btn-mapa">
                     <i class="fa-solid fa-location-dot"></i> Ver Ubicación Recepción
                 </a>
             </div>
@@ -1046,15 +1048,15 @@
                 </div>
 
                 <h2 class="rsvp-title">Confirmar Asistencia</h2>
-                <p class="rsvp-deadline"></p>
+                <p class="rsvp-deadline">ANTES DEL 1 DE NOVIEMBRE</p>
 
                 <!-- Sobre con Corazón -->
                 <div class="rsvp-envelope-icon">
                     <i class="fa-solid fa-heart rsvp-heart"></i>
                 </div>
 
-                <!-- Botón que abre WhatsApp (puedes cambiar el número de teléfono) -->
-                <a href="https://wa.me/1234567890?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Yeimi%20Yaritza" target="_blank" class="btn-confirmar">
+                <!-- Botón de WhatsApp -->
+                <a href="https://wa.me/?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Yeimi%20Yaritza" target="_blank" class="btn-confirmar">
                     CONFIRMA AQUÍ
                 </a>
 
@@ -1087,7 +1089,7 @@
         </main>
     </div>
 
-    <!-- Script de Cuenta Regresiva Automática -->
+    <!-- Scripts de Funcionalidad -->
     <script>
         const eventDate = new Date("December 19, 2026 16:30:00").getTime();
 
@@ -1124,22 +1126,34 @@
 
             envelopeBox.classList.add('opened');
 
+            // Intenta reproducir la música al tocar el sobre
+            togglePlay(true);
+
             setTimeout(() => {
                 envelopeScreen.classList.add('hide');
                 mainContent.classList.add('show');
             }, 800);
         }
 
-        function togglePlay() {
+        function togglePlay(forcePlay = false) {
             const audio = document.getElementById('bg-music');
             const playIcon = document.getElementById('play-icon');
+            const statusText = document.getElementById('player-status');
 
-            if (audio.paused) {
-                audio.play();
-                playIcon.className = 'fa-solid fa-pause';
+            if (!audio) return;
+
+            if (audio.paused || forcePlay) {
+                audio.play().then(() => {
+                    if (playIcon) playIcon.className = 'fa-solid fa-pause';
+                    if (statusText) statusText.innerText = "REPRODUCIENDO MÚSICA";
+                }).catch(err => {
+                    console.log("No se pudo reproducir el audio:", err);
+                    if (statusText) statusText.innerText = "TOCA PLAY PARA REPRODUCIR";
+                });
             } else {
                 audio.pause();
-                playIcon.className = 'fa-solid fa-play';
+                if (playIcon) playIcon.className = 'fa-solid fa-play';
+                if (statusText) statusText.innerText = "PAUSADO - TOCA PLAY";
             }
         }
     </script>
